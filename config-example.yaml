@@ -1,0 +1,37 @@
+---
+elements:
+  api:
+    url: "https://control.net.example.com/api/elements"
+
+librenms:
+
+  api:
+    url: https://librenms.net.example.com/api/v0
+    key: 11111111111111111111111111111111
+
+  db:
+    host: 127.0.0.1
+    user: librenms_user
+    pass: librenms_password
+    name: librenms_database_name
+  
+  # Todo, support multiple communities
+  snmp:
+    version: 2c
+    community:
+    - community1
+    - community2
+
+librenms_sync:
+
+  # List of elemenets that sync script should ignore/not delete
+  persistent_elements:
+    localhost : 1
+
+  # List of regex, if "interface role" match is found, interface will be configured with ignored=0
+  roles_enabled:
+    - ^uplink\..*
+
+  # List of regex, if "interface name" match is found, interface will be configured with ignored=1
+  interfaces_disabled:
+    - "~Vl"
