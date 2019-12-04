@@ -63,13 +63,13 @@ def sync_interfaces(librenms_mgr, api_elements, hostname):
     #    if interface has role uplink.* then ignore = 1
     for librenms_interface_name, librenms_interface in librenms_intf.items():
         ignore = 0  # default
-        if_role = "?"
+        role = "?"
         if librenms_interface_name in element_intf:
             element_interface = element_intf[librenms_interface_name]
-            if 'if_role' in element_interface:
-                if_role = element_interface['if_role']
+            if 'role' in element_interface:
+                role = element_interface['role']
                 for role_regex in roles_enabled_compiled:
-                    if role_regex.search(if_role) is None:
+                    if role_regex.search(role) is None:
                         ignore = 1
             for interface_regex in interfaces_disabled_compiled:
                 # print(librenms_interface_name, interface_regex)
@@ -77,7 +77,7 @@ def sync_interfaces(librenms_mgr, api_elements, hostname):
                     ignore = 1
 
         if librenms_interface.ignore != ignore:
-            print("    Hostname %s, interface %s role %s, setting ignore to %s" % (hostname, librenms_interface_name, if_role, ignore))
+            print("    Hostname %s, interface %s role %s, setting ignore to %s" % (hostname, librenms_interface_name, role, ignore))
             d = AttrDict()
             d.ignore = ignore
             librenms_mgr.update_element_interface(port_id=librenms_interface.port_id, data=d)
