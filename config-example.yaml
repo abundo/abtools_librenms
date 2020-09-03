@@ -1,7 +1,7 @@
 ---
-elements:
+devices:
   api:
-    url: "https://control.net.example.com/api/elements"
+    url: "https://control.net.example.com/api/device"
 
 librenms:
 
@@ -25,7 +25,7 @@ librenms:
 librenms_sync:
 
   # List of elemenets that sync script should ignore/not delete
-  persistent_elements:
+  persistent_devices:
     localhost : 1
 
   # List of regex, if "interface role" match is found, interface will be configured with ignored=0
